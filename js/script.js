@@ -59,17 +59,38 @@ document.querySelectorAll('.feature-card, .activity-item, .contact-card').forEac
     cardObserver.observe(card);
 });
 
-// Header scroll effect
+// Header scroll effect - UPDATED WITH TRANSPARENCY
 let lastScroll = 0;
 const header = document.querySelector('header');
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
     
-    if (currentScroll > 100) {
+    if (currentScroll > 50) {
+        // Make header compact and semi-transparent when scrolling
+        header.style.backgroundColor = 'rgba(93, 206, 239, 0.95)';
+        header.style.backdropFilter = 'blur(10px)';
+        header.style.padding = '0.5rem 0';
         header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+        
+        // Make logo smaller
+        const logo = header.querySelector('.logo');
+        if (logo) {
+            logo.style.maxWidth = '120px';
+            logo.style.transition = 'max-width 0.3s ease';
+        }
     } else {
+        // Return to original state
+        header.style.backgroundColor = '';
+        header.style.backdropFilter = '';
+        header.style.padding = '1rem 0';
         header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+        
+        // Return logo to normal size
+        const logo = header.querySelector('.logo');
+        if (logo) {
+            logo.style.maxWidth = '200px';
+        }
     }
     
     lastScroll = currentScroll;
